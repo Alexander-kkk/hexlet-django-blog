@@ -1,1 +1,18 @@
-<h1>{{text}}</h1>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Список статей</h1>
+{% for article in articles %}
+
+
+<h2><a href="{% url 'article' article.id %}">{{ article.name }}</a></h2>
+<div>{{ article.body|slice:":200" }}</div>
+{% endfor %}
+
+
+<form action="{% url 'article_index' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Добавить">
+</form>
+{% endblock %}
